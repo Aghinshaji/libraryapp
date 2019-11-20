@@ -28,10 +28,17 @@ var authors = [
     }
 ];
 
-function Router(nav){
+function Router(nav) {
     authorsRouter('/')
-    .get((req,res)=>{
-        res.render("authers.ejs",{nav,title:'Authors'})
-    }
-    )
-}
+        .get((req, res) => {
+            res.render("authors.ejs", { nav, title: 'Authors', authors })// title and array list
+        }
+        )
+
+    authorsRoter.Route('/:id')
+        .get((req, res) => {
+            var i = req.params.id;
+            res.render("author.ejs", { nav, book: books[i] })
+        })
+        return authorsRouter;
+};
