@@ -6,9 +6,11 @@ var app= new express();// app function provided
 var nav=[{link:'/books',title:'Books'},{link:'/authors',title:'Authors'},
         {link:'/books/addbooks',title:'Add Books'}];
 var booksRouter = require('./src/routes/BokksRouter')(nav);
+var authorsRouter = require('./src/routes/AuthorsRouter')(nav);
 app.use(express.static(path.join(__dirname,"/public")));
 app.use(bodyparser.urlencoded({extented:true}))
 app.use('/books',booksRouter);
+app.use('/authors',authorsRouter);
 app.set('views','./src/views');
 app.set('view engine','ejs');
 
@@ -30,6 +32,12 @@ res.render('index.ejs',{nav,title:"Library"});// ejs added fo give data
 
 
 // })
+app.get("/login",function(req,res){
+    res.render("login.ejs",{title:"Log In"});
+})
+app.get("/signup",function(req,res){
+    res.render("signup.ejs",{title:"Sign Up"});
+})
 app.get("/authors",function(req,res){
     res.render("authors.ejs",{nav,title:"Authors"});// when type localhost:3000/library get the haii everyone
 });
